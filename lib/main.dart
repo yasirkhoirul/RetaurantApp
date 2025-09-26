@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:restaurant_app/screen/list_restaurant_screen.dart';
+import 'package:restaurant_app/widget/card_item_restoranlist.dart';
 
 void main() {
   runApp(const MainApp());
@@ -9,10 +11,13 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
+      theme: ThemeData.light(),
+      darkTheme: ThemeData.dark(),
+      themeMode: ThemeMode.system,
       home: Scaffold(
         body: Center(
-          child: Text('Hello World!'),
+          child: ListRestaurantScreen(),
         ),
       ),
     );
