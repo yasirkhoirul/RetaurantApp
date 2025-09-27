@@ -21,35 +21,36 @@ class TurisTheme {
       labelSmall: Textstyle.labelSmall,
     );
   }
+
   static AppBarTheme get _appBarTheme {
-   return AppBarTheme(
-     toolbarTextStyle: _textTheme.titleLarge,
-     shape: const BeveledRectangleBorder(
-       borderRadius: BorderRadius.only(
-         bottomLeft: Radius.circular(14),
-         bottomRight: Radius.circular(14),
-       ),
-     ),
-   );
- }
+    return AppBarTheme(
+      toolbarTextStyle: _textTheme.titleLarge,
+      shape: const BeveledRectangleBorder(
+        borderRadius: BorderRadius.only(
+          bottomLeft: Radius.circular(14),
+          bottomRight: Radius.circular(14),
+        ),
+      ),
+    );
+  }
 
   static ThemeData get lightTheme {
-   return ThemeData(
-     colorSchemeSeed: Colors.blue,
-     brightness: Brightness.light,
-     textTheme: _textTheme,
-     useMaterial3: true,
-     appBarTheme: _appBarTheme,
-   );
- }
- 
- static ThemeData get darkTheme {
-   return ThemeData(
-     colorSchemeSeed: Colors.blue,
-     brightness: Brightness.dark,
-     textTheme: _textTheme,
-     useMaterial3: true,
-     appBarTheme: _appBarTheme,
-   );
- }
+    return ThemeData(
+      colorSchemeSeed: Colors.blue,
+      brightness: Brightness.light,
+      textTheme: _textTheme,
+      useMaterial3: true,
+      appBarTheme: _appBarTheme,
+    );
+  }
+
+  static ThemeData get darkTheme {
+    return ThemeData(
+      colorSchemeSeed: Colors.blue,
+      brightness: Brightness.dark,
+      textTheme: _textTheme,
+      useMaterial3: true,
+      appBarTheme: _appBarTheme,
+    );
+  }
 }

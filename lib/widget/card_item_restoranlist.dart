@@ -6,13 +6,11 @@ class CardItemRestoranlist extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ConstrainedBox(
-      constraints: BoxConstraints(
-        maxHeight: 120,
-        minHeight: 100
-      ),
-      child: InkWell(
-        onTap: () => {},
-        child: Card(
+      constraints: BoxConstraints(maxHeight: 120, minHeight: 100),
+      child: Card(
+        color: Theme.of(context).colorScheme.primaryContainer,
+        child: InkWell(
+          onTap: () {},
           child: Padding(
             padding: EdgeInsets.all(12),
             child: Row(
@@ -31,7 +29,7 @@ class CardItemRestoranlist extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(width: 20,),
+                SizedBox(width: 20),
                 Expanded(
                   flex: 7,
                   child: Column(
@@ -57,13 +55,15 @@ class CardItemRestoranlist extends StatelessWidget {
                           ),
                         ],
                       ),
-                      
+
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.start,
                         children: [
                           Icon(Icons.star, size: 20),
-                          Text("4,6", style: Theme.of(context).textTheme.labelSmall
+                          Text(
+                            "4,6",
+                            style: Theme.of(context).textTheme.labelSmall,
                           ),
                         ],
                       ),
