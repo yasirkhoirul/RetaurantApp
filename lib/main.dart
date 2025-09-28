@@ -1,13 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:restaurant_app/provider/bottomnav_provider.dart';
 import 'package:restaurant_app/provider/searchbar_provider.dart';
+import 'package:restaurant_app/provider/settings_provider.dart';
 import 'package:restaurant_app/screen/detail_screen.dart';
-import 'package:restaurant_app/screen/list_restaurant_screen.dart';
+import 'package:restaurant_app/screen/home_screen.dart';
+import 'package:restaurant_app/static/route.dart';
 import 'package:restaurant_app/style/theme.dart';
-import 'package:restaurant_app/widget/card_item_restoranlist.dart';
 
 void main() {
-  runApp(const MainApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => SearchbarProvider()),
+        ChangeNotifierProvider(create: (context) => Navigationprovider()),
+        ChangeNotifierProvider(create: (context) => SettingsProvider()),
+      ],
+      child: const MainApp(),
+    ),
+  );
 }
 
 class MainApp extends StatelessWidget {
@@ -19,14 +30,11 @@ class MainApp extends StatelessWidget {
       theme: TurisTheme.lightTheme,
       darkTheme: TurisTheme.darkTheme,
       themeMode: ThemeMode.system,
-      home: Scaffold(
-        body: Center(
-          child: ChangeNotifierProvider(
-            create: (context) => SearchbarProvider(),
-            child: const DetailScreen(),
-          ),
-        ),
-      ),
+      initialRoute: Restoreanroute.home.rute,
+      routes: {
+        Restoreanroute.home.rute: (context) => HomeScreen(),
+        Restoreanroute.detail.rute: (context) => DetailScreen(),
+      },
     );
   }
 }

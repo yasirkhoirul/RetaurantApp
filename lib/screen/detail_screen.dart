@@ -20,7 +20,7 @@ class DetailScreen extends StatelessWidget {
                 bottomRight: Radius.circular(12),
               ),
             ),
-            
+
             flexibleSpace: Stack(
               clipBehavior: Clip.none,
               children: [
@@ -90,16 +90,23 @@ class DetailScreen extends StatelessWidget {
                       height: 25,
                       child: ListView.builder(
                         scrollDirection: Axis.horizontal,
-                        itemBuilder: (context, index) => Text(" genre ",style: Theme.of(context).textTheme.labelMedium,),
+                        itemBuilder: (context, index) => Text(
+                          " genre ",
+                          style: Theme.of(context).textTheme.labelMedium,
+                        ),
                         itemCount: 3,
                       ),
                     ),
                     SizedBox(height: 10),
                     Text(
                       "lorem ipsum balldflsdlflsdflsdf sldfalsdjflksjdflkasd sdlkfjlsadjflkjsdfl sdflakj",
-                    style: Theme.of(context).textTheme.bodyMedium,),
+                      style: Theme.of(context).textTheme.bodyMedium,
+                    ),
                     SizedBox(height: 20),
-                    Text("Makanan", style: Theme.of(context).textTheme.titleLarge),
+                    Text(
+                      "Makanan",
+                      style: Theme.of(context).textTheme.titleLarge,
+                    ),
                     SizedBox(height: 10),
                     SizedBox(
                       height: 100,
@@ -111,7 +118,10 @@ class DetailScreen extends StatelessWidget {
                       ),
                     ),
                     SizedBox(height: 10),
-                    Text("minuman", style: Theme.of(context).textTheme.titleLarge),
+                    Text(
+                      "minuman",
+                      style: Theme.of(context).textTheme.titleLarge,
+                    ),
                     SizedBox(height: 10),
                     SizedBox(
                       height: 100,
@@ -122,14 +132,20 @@ class DetailScreen extends StatelessWidget {
                             CardItemMenu(jenis: JenisMenu.minuman),
                       ),
                     ),
-                    SizedBox(height: 20,),
-                    Text("Review",style: Theme.of(context).textTheme.titleLarge,)
+                    SizedBox(height: 20),
+                    Text(
+                      "Review",
+                      style: Theme.of(context).textTheme.titleLarge,
+                    ),
                   ],
                 ),
               ),
             ),
           ),
-          SliverList.builder(itemBuilder: (context, index) => const ListtileReview(),itemCount: 8,)
+          SliverList.builder(
+            itemBuilder: (context, index) => const ListtileReview(),
+            itemCount: 8,
+          ),
         ],
       ),
     );

@@ -20,8 +20,8 @@ class CardItemMenu extends StatelessWidget {
                     ? Icons.food_bank
                     : Icons.local_drink,
               ),
-              Text("menu",style: Theme.of(context).textTheme.titleSmall,),
-              Text("nama menu",style: Theme.of(context).textTheme.bodySmall,),
+              Text("menu", style: Theme.of(context).textTheme.titleSmall),
+              Text("nama menu", style: Theme.of(context).textTheme.bodySmall),
             ],
           ),
         ),

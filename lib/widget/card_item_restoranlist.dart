@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:restaurant_app/static/route.dart';
 
 class CardItemRestoranlist extends StatelessWidget {
   const CardItemRestoranlist({super.key});
@@ -10,7 +11,9 @@ class CardItemRestoranlist extends StatelessWidget {
       child: Card(
         color: Theme.of(context).colorScheme.primaryContainer,
         child: InkWell(
-          onTap: () {},
+          onTap: () {
+            Navigator.pushNamed(context, Restoreanroute.detail.rute);
+          },
           child: Padding(
             padding: EdgeInsets.all(12),
             child: Row(
