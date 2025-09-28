@@ -4,9 +4,19 @@ import 'package:restaurant_app/provider/searchbar_provider.dart';
 import 'package:restaurant_app/utils/header_delegate.dart';
 import 'package:restaurant_app/widget/card_item_restoranlist.dart';
 
-class Customlistrestoran extends StatelessWidget {
-  const Customlistrestoran({super.key});
+class Customlistrestoran extends StatefulWidget {
+  final String title;
+  const Customlistrestoran({super.key,required this.title});
 
+  @override
+  State<Customlistrestoran> createState() => _CustomlistrestoranState();
+}
+
+class _CustomlistrestoranState extends State<Customlistrestoran> {
+  @override
+  void initState() {
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return CustomScrollView(
@@ -24,7 +34,7 @@ class Customlistrestoran extends StatelessWidget {
           flexibleSpace: FlexibleSpaceBar(
             titlePadding: EdgeInsets.only(left: 10, bottom: 24),
             title: Text(
-              "Restoran",
+              widget.title,
               style: Theme.of(context).textTheme.headlineSmall,
             ),
           ),
@@ -37,20 +47,13 @@ class Customlistrestoran extends StatelessWidget {
             anak: Center(
               child: Padding(
                 padding: EdgeInsets.all(5),
-                child: Column(
-                  children: [
-                    SearchBar(
-                      onChanged: (value) =>
-                          context.read<SearchbarProvider>().setdata(value),
-                      hintText: "Cari Restoran",
-                      leading: Icon(Icons.search),
-                    ),
-                    Consumer<SearchbarProvider>(
-                      builder: (context, value, child) {
-                        return Text("hasilnya adalah ${value.data}");
-                      },
-                    ),
-                  ],
+                child: Center(
+                  child: SearchBar(
+                    onChanged: (value) =>
+                        context.read<SearchbarProvider>().setdata(value),
+                    hintText: "Cari Restoran",
+                    leading: Icon(Icons.search),
+                  ),
                 ),
               ),
             ),
