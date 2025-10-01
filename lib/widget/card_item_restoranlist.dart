@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:restaurant_app/api/data/baseurl.dart';
+import 'package:restaurant_app/api/model/restoran_model.dart';
 import 'package:restaurant_app/static/route.dart';
 
 class CardItemRestoranlist extends StatelessWidget {
-  const CardItemRestoranlist({super.key});
+  final Restoran dataresto;
+  const CardItemRestoranlist({super.key, required this.dataresto});
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +15,11 @@ class CardItemRestoranlist extends StatelessWidget {
         color: Theme.of(context).colorScheme.primaryContainer,
         child: InkWell(
           onTap: () {
-            Navigator.pushNamed(context, Restoreanroute.detail.rute);
+            Navigator.pushNamed(
+              context,
+              Restoreanroute.detail.rute,
+              arguments: dataresto.id,
+            );
           },
           child: Padding(
             padding: EdgeInsets.all(12),
@@ -24,11 +31,14 @@ class CardItemRestoranlist extends StatelessWidget {
                   child: SizedBox(
                     height: 100,
                     width: 200,
-                    child: Image.network(
-                      "https://restaurant-api.dicoding.dev/images/small/14",
-                      errorBuilder: (context, error, stackTrace) =>
-                          const Icon(Icons.error),
-                      fit: BoxFit.cover,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(12),
+                      child: Image.network(
+                        "${Baseurl.imageUrl}/${dataresto.pictureId}",
+                        errorBuilder: (context, error, stackTrace) =>
+                            const Icon(Icons.error),
+                        fit: BoxFit.cover,
+                      ),
                     ),
                   ),
                 ),
@@ -44,14 +54,14 @@ class CardItemRestoranlist extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "Restoran 1",
+                            dataresto.name,
                             style: Theme.of(context).textTheme.labelLarge,
                           ),
                           Row(
                             children: [
                               Icon(Icons.location_on, size: 20),
                               Text(
-                                "Lokasi",
+                                dataresto.city,
                                 style: Theme.of(context).textTheme.labelSmall,
                               ),
                             ],
@@ -65,7 +75,7 @@ class CardItemRestoranlist extends StatelessWidget {
                         children: [
                           Icon(Icons.star, size: 20),
                           Text(
-                            "4,6",
+                            dataresto.rating.toString(),
                             style: Theme.of(context).textTheme.labelSmall,
                           ),
                         ],

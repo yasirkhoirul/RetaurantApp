@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:restaurant_app/api/model/detail_restoran.dart';
 
 class ListtileReview extends StatelessWidget {
-  const ListtileReview({super.key});
+  final Review review;
+  const ListtileReview({super.key, required this.review});
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
     return ListTile(
       leading: Icon(Icons.person),
-      title: Text("Nama orang", style: Theme.of(context).textTheme.titleSmall),
+      title: Text(review.name, style: Theme.of(context).textTheme.titleSmall),
       subtitle: Text(
-        "ini adalah review dari orang tersebut sedikit panjang tapi bisa lah tak apa apap lalalallala",
+        review.review,
         style: Theme.of(context).textTheme.bodySmall,
       ),
     );

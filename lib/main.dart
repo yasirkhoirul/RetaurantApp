@@ -1,20 +1,55 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:restaurant_app/api/data/restoran_api.dart';
 import 'package:restaurant_app/provider/bottomnav_provider.dart';
+import 'package:restaurant_app/provider/database_provider.dart';
+import 'package:restaurant_app/provider/detail_restaurant_provider.dart';
+import 'package:restaurant_app/provider/restoranlist_provider.dart';
+import 'package:restaurant_app/provider/review_provider.dart';
 import 'package:restaurant_app/provider/searchbar_provider.dart';
-import 'package:restaurant_app/provider/settings_provider.dart';
+import 'package:restaurant_app/provider/setting_provider.dart';
 import 'package:restaurant_app/screen/detail_screen.dart';
 import 'package:restaurant_app/screen/home_screen.dart';
+import 'package:restaurant_app/service/setting_service.dart';
+import 'package:restaurant_app/service/sqlite_service.dart';
 import 'package:restaurant_app/static/route.dart';
 import 'package:restaurant_app/style/theme.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final prefs = await SharedPreferences.getInstance();
+
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => SearchbarProvider()),
         ChangeNotifierProvider(create: (context) => Navigationprovider()),
-        ChangeNotifierProvider(create: (context) => SettingsProvider()),
+        Provider(create: (context) => Apiservice()),
+        ChangeNotifierProvider(
+          create: (context) =>
+              RestoranlistProvider(api: context.read<Apiservice>()),
+        ),
+        ChangeNotifierProvider(
+          create: (context) =>
+              SearchbarProvider(api: context.read<Apiservice>()),
+        ),
+        ChangeNotifierProvider(
+          create: (context) =>
+              DetailRestaurantProvider(api: context.read<Apiservice>()),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => ReviewProvider(context.read<Apiservice>()),
+        ),
+        Provider(create: (context) => SqliteService()),
+        ChangeNotifierProvider(
+          create: (context) =>
+              DatabaseProvider(sqlite: context.read<SqliteService>()),
+        ),
+        Provider(create: (context) => SettingService(prefs)),
+        ChangeNotifierProvider(
+          create: (context) =>
+              SettingProvider(settingService: context.read<SettingService>()),
+        ),
       ],
       child: const MainApp(),
     ),
@@ -33,7 +68,9 @@ class MainApp extends StatelessWidget {
       initialRoute: Restoreanroute.home.rute,
       routes: {
         Restoreanroute.home.rute: (context) => HomeScreen(),
-        Restoreanroute.detail.rute: (context) => DetailScreen(),
+        Restoreanroute.detail.rute: (context) => DetailScreen(
+          idResto: ModalRoute.of(context)?.settings.arguments as String,
+        ),
       },
     );
   }
