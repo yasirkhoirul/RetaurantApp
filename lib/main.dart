@@ -12,6 +12,7 @@ import 'package:restaurant_app/screen/detail_screen.dart';
 import 'package:restaurant_app/screen/home_screen.dart';
 import 'package:restaurant_app/service/setting_service.dart';
 import 'package:restaurant_app/service/sqlite_service.dart';
+import 'package:restaurant_app/service/timezone_notification_service.dart';
 import 'package:restaurant_app/static/route.dart';
 import 'package:restaurant_app/style/theme.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -48,8 +49,10 @@ void main() async {
         Provider(create: (context) => SettingService(prefs)),
         ChangeNotifierProvider(
           create: (context) =>
-              SettingProvider(settingService: context.read<SettingService>()),
+              SettingProvider(settingService: context.read<SettingService>())..getdata(),
         ),
+
+        Provider(create: (context) => TimezoneNotificationService()..init()..configureLocalTImezone(),)
       ],
       child: const MainApp(),
     ),
@@ -64,7 +67,7 @@ class MainApp extends StatelessWidget {
     return MaterialApp(
       theme: TurisTheme.lightTheme,
       darkTheme: TurisTheme.darkTheme,
-      themeMode: ThemeMode.system,
+      themeMode: context.watch<SettingProvider>().setting!.theme?ThemeMode.light:ThemeMode.dark,
       initialRoute: Restoreanroute.home.rute,
       routes: {
         Restoreanroute.home.rute: (context) => HomeScreen(),

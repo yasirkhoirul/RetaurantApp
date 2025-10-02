@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:restaurant_app/provider/bottomnav_provider.dart';
 import 'package:restaurant_app/provider/restoranlist_provider.dart';
 import 'package:restaurant_app/static/status.dart';
 import 'package:restaurant_app/widget/customlist.dart';
@@ -30,6 +31,7 @@ class _ListRestaurantScreenState extends State<ListRestaurantScreen> {
               Statussukses(datarestoran: var data) => Customlistrestoran(
                 title: "Restaurant",
                 datalist: data.restaurant,
+                indexbotnav: context.read<Navigationprovider>().indexNav,
               ),
               Statuserror(message: var message) => Center(
                 child: Column(

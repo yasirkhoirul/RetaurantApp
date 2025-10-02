@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:logger/web.dart';
 import 'package:provider/provider.dart';
 import 'package:restaurant_app/api/model/restoran_model.dart';
 import 'package:restaurant_app/provider/searchbar_provider.dart';
@@ -7,13 +8,15 @@ import 'package:restaurant_app/utils/header_delegate.dart';
 import 'package:restaurant_app/widget/card_item_restoranlist.dart';
 
 class Customlistrestoran extends StatefulWidget {
+  final int indexbotnav;
   final String title;
   final List<Restoran> datalist;
   const Customlistrestoran({
     super.key,
     required this.title,
     required this.datalist,
-  });
+    required this.indexbotnav
+  });//
 
   @override
   State<Customlistrestoran> createState() => _CustomlistrestoranState();
@@ -58,7 +61,7 @@ class _CustomlistrestoranState extends State<Customlistrestoran> {
           ),
         ),
 
-        SliverPersistentHeader(
+        widget.indexbotnav == 0?SliverPersistentHeader(
           pinned: true,
           delegate: Headerlistrestorandelegate(
             maxheight: 120,
@@ -68,6 +71,7 @@ class _CustomlistrestoranState extends State<Customlistrestoran> {
                 padding: EdgeInsets.all(5),
                 child: SearchBar(
                   controller: text,
+                  onTapOutside: (event) => Logger().d(ModalRoute.of(context)?.settings.name),
                   onChanged: (value) =>
                       context.read<SearchbarProvider>().setdata(value),
                   onSubmitted: (value) =>
@@ -78,7 +82,7 @@ class _CustomlistrestoranState extends State<Customlistrestoran> {
               ),
             ),
           ),
-        ),
+        ):SliverToBoxAdapter(),
         Consumer<SearchbarProvider>(
           builder: (context, values, child) {
             return switch (values.datalistsearch) {

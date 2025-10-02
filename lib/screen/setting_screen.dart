@@ -36,52 +36,79 @@ class _SettingScreenState extends State<SettingScreen> {
                   titlePadding: EdgeInsets.only(left: 10, bottom: 10),
                 ),
               ),
-              SliverPersistentHeader(
-                delegate: Headerlistrestorandelegate(
-                  maxheight: 120,
-                  minheight: 80,
-                  anak: Padding(
-                    padding: EdgeInsets.all(10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Restaurant Notification",
-                              style: Theme.of(context).textTheme.labelLarge,
-                            ),
-                            SizedBox(height: 5),
-                            Text(
-                              "Enable Notification",
-                              style: Theme.of(context).textTheme.labelSmall,
-                            ),
-                          ],
-                        ),
-                        Switch(
-                          value: values.setting!.notif,
-                          onChanged: (value) async {
-                            await values.saveData(
-                              Setting(
-                                notif: value,
-                                theme: values.setting!.theme,
-                              ),
-                            );
-                            await values.getdata();
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
+              ItemHeader(
+                title: "Notifikasi Restoran",
+                switchvalue: values.setting!.notif,
+                onSwitch: (value) async {
+                  await values.saveData(
+                    Setting(notif: value, theme: values.setting!.theme),
+                  );
+                  await values.getdata();
+                },
+              ),
+              ItemHeader(
+                title: "Tema",
+                switchvalue: values.setting!.theme,
+                onSwitch: (value) async {
+                  await values.saveData(
+                    Setting(notif: values.setting!.notif, theme: value),
+                  );
+                  await values.getdata();
+                },
               ),
             ],
           ),
         );
       },
+    );
+  }
+}
+
+class ItemHeader extends StatelessWidget {
+
+  final String title;
+  final Function(bool)? onSwitch;
+  final bool switchvalue;
+
+  const ItemHeader({
+    super.key,
+    required this.onSwitch,
+    required this.switchvalue,
+    required this.title
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return SliverPersistentHeader(
+      delegate: Headerlistrestorandelegate(
+        maxheight: 80,
+        minheight: 80,
+        anak: Padding(
+          padding: EdgeInsets.all(10),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: Theme.of(context).textTheme.titleMedium,
+                  ),
+                  SizedBox(height: 5),
+                  Text(
+                    switchvalue?"$title dihidupkan":"$title dimatikan",
+                    style: Theme.of(context).textTheme.bodyMedium,
+                  ),
+                ],
+              ),
+              Switch(value: switchvalue, onChanged: onSwitch),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }

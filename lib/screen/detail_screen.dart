@@ -60,16 +60,19 @@ class _DetailScreenState extends State<DetailScreen> {
                       clipBehavior: Clip.none,
                       children: [
                         FlexibleSpaceBar(
-                          background: ClipRRect(
-                            borderRadius: BorderRadiusGeometry.only(
-                              bottomLeft: Radius.circular(12),
-                              bottomRight: Radius.circular(12),
-                            ),
-                            child: Image.network(
-                              "${Baseurl.imageUrl}/${data.restaurants.pictureId}",
-                              errorBuilder: (context, error, stackTrace) =>
-                                  const Icon(Icons.error),
-                              fit: BoxFit.cover,
+                          background: Hero(
+                            tag: 'hero${data.restaurants.pictureId}',
+                            child: ClipRRect(
+                              borderRadius: BorderRadiusGeometry.only(
+                                bottomLeft: Radius.circular(12),
+                                bottomRight: Radius.circular(12),
+                              ),
+                              child: Image.network(
+                                "${Baseurl.imageUrl}/${data.restaurants.pictureId}",
+                                errorBuilder: (context, error, stackTrace) =>
+                                    const Icon(Icons.error),
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           ),
                         ),
@@ -225,197 +228,217 @@ class _DetailScreenState extends State<DetailScreen> {
                   SliverToBoxAdapter(
                     child: Container(
                       color: Theme.of(context).colorScheme.onPrimary,
-                      child: Padding(
-                        padding: EdgeInsets.all(12),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            SizedBox(
-                              height: 25,
-                              child: ListView.builder(
-                                scrollDirection: Axis.horizontal,
-                                itemBuilder: (context, index) => Text(
-                                  data.restaurants.kategori[index].name,
-                                  style: Theme.of(
-                                    context,
-                                  ).textTheme.labelMedium,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          SizedBox(
+                            height: 45,
+                            child: ListView.builder(
+                              scrollDirection: Axis.horizontal,
+                              itemBuilder: (context, index) => Card(
+                                child: Center(
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(
+                                      data.restaurants.kategori[index].name,
+                                      style: Theme.of(
+                                        context,
+                                      ).textTheme.labelLarge,
+                                    ),
+                                  ),
                                 ),
-                                itemCount: data.restaurants.kategori.length,
                               ),
+                              itemCount: data.restaurants.kategori.length,
                             ),
-                            SizedBox(height: 10),
-                            Text(
+                          ),
+                          SizedBox(height: 10),
+                          Container(
+                            padding: EdgeInsets.all(10),
+                            color: Theme.of(context).colorScheme.onSecondary,
+                            child: Text(
                               data.restaurants.description,
                               style: Theme.of(context).textTheme.bodyMedium,
                             ),
-                            SizedBox(height: 20),
-                            Text(
+                          ),
+                          SizedBox(height: 20),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 5),
+                            child: Text(
                               "Makanan",
                               style: Theme.of(context).textTheme.titleLarge,
                             ),
-                            SizedBox(height: 10),
-                            SizedBox(
-                              height: 100,
-                              child: ListView.builder(
-                                itemCount: data.restaurants.menu.food.length,
-                                scrollDirection: Axis.horizontal,
-                                itemBuilder: (context, index) => CardItemMenu(
-                                  jenis: JenisMenu.makanan,
-                                  namamenu:
-                                      data.restaurants.menu.food[index].name,
-                                ),
+                          ),
+                          SizedBox(height: 10),
+                          SizedBox(
+                            height: 100,
+                            child: ListView.builder(
+                              itemCount: data.restaurants.menu.food.length,
+                              scrollDirection: Axis.horizontal,
+                              itemBuilder: (context, index) => CardItemMenu(
+                                jenis: JenisMenu.makanan,
+                                namamenu:
+                                    data.restaurants.menu.food[index].name,
                               ),
                             ),
-                            SizedBox(height: 10),
-                            Text(
+                          ),
+                          SizedBox(height: 10),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 5),
+                            child: Text(
                               "minuman",
                               style: Theme.of(context).textTheme.titleLarge,
                             ),
-                            SizedBox(height: 10),
-                            SizedBox(
-                              height: 100,
-                              child: ListView.builder(
-                                itemCount: data.restaurants.menu.drinks.length,
-                                scrollDirection: Axis.horizontal,
-                                itemBuilder: (context, index) => CardItemMenu(
-                                  jenis: JenisMenu.minuman,
-                                  namamenu:
-                                      data.restaurants.menu.drinks[index].name,
-                                ),
+                          ),
+                          SizedBox(height: 10),
+                          SizedBox(
+                            height: 100,
+                            child: ListView.builder(
+                              itemCount: data.restaurants.menu.drinks.length,
+                              scrollDirection: Axis.horizontal,
+                              itemBuilder: (context, index) => CardItemMenu(
+                                jenis: JenisMenu.minuman,
+                                namamenu:
+                                    data.restaurants.menu.drinks[index].name,
                               ),
                             ),
-                            SizedBox(height: 20),
-                            Text(
+                          ),
+                          SizedBox(height: 20),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 5),
+                            child: Text(
                               "Review",
                               style: Theme.of(context).textTheme.titleLarge,
                             ),
-                            SizedBox(height: 20),
-                            ConstrainedBox(
-                              constraints: BoxConstraints(
-                                minHeight: 280,
-                                maxHeight: 300,
-                                minWidth: 400,
-                                maxWidth: 450,
-                              ),
-                              child: Consumer<ReviewProvider>(
-                                builder: (context, postreview, child) {
-                                  return Card(
-                                    child: Padding(
-                                      padding: EdgeInsets.all(12),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          const Text("tuliskan komentar anda"),
-                                          const SizedBox(height: 10),
-                                          TextField(
-                                            controller: username,
-                                            decoration: InputDecoration(
-                                              border: OutlineInputBorder(),
-                                              label: Text("Username"),
-                                            ),
-                                          ),
-                                          const SizedBox(height: 10),
-                                          TextFormField(
-                                            controller: description,
-                                            maxLines: 3,
-                                            keyboardType:
-                                                TextInputType.multiline,
-                                            decoration: InputDecoration(
-                                              label: Text("Deskripsi"),
-                                              border: OutlineInputBorder(),
-                                            ),
-                                          ),
-                                          const SizedBox(height: 10),
-                                          OutlinedButton(
-                                            onPressed: () {
-                                              Logger().d(data.restaurants.id);
-                                              postreview.onSubmit(
-                                                username.text,
-                                                description.text,
-                                                data.restaurants.id,
-                                              );
-                                              showDialog(
-                                                barrierDismissible: false,
-                                                context: context,
-                                                builder: (context) => Consumer<ReviewProvider>(
-                                                  builder:
-                                                      (
-                                                        context,
-                                                        value,
-                                                        child,
-                                                      ) => switch (value
-                                                          .status) {
-                                                        StatussuksesPostreview(
-                                                          response: var response,
-                                                        ) =>
-                                                          AlertDialog(
-                                                            title: Text(
-                                                              "Review",
-                                                            ),
-                                                            actions: [
-                                                              Column(
-                                                                children: [
-                                                                  Text(
-                                                                    response
-                                                                        .message,
-                                                                  ),
-                                                                  TextButton(
-                                                                    onPressed: () {
-                                                                      Navigator.pop(
-                                                                        context,
-                                                                      );
-                                                                    },
-                                                                    child: Text(
-                                                                      "OK",
-                                                                    ),
-                                                                  ),
-                                                                ],
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        Statuserror(
-                                                          message: var message,
-                                                        ) =>
-                                                          AlertDialog(
-                                                            title: Text(
-                                                              "terjadi kesalahan",
-                                                            ),
-                                                            actions: [
-                                                              Text(message),
-                                                              TextButton(
-                                                                onPressed: () {
-                                                                  Navigator.pop(
-                                                                    context,
-                                                                  );
-                                                                },
-                                                                child: Text(
-                                                                  "OK",
-                                                                ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        _ => Center(
-                                                          child:
-                                                              const CircularProgressIndicator(),
-                                                        ),
-                                                      },
-                                                ),
-                                              );
-                                            },
-                                            child: const Text("Kirim"),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  );
-                                },
-                              ),
+                          ),
+                          SizedBox(height: 20),
+                          ConstrainedBox(
+                            constraints: BoxConstraints(
+                              minHeight: 280,
+                              maxHeight: 300,
+                              minWidth: 400,
+                              maxWidth: 450,
                             ),
-                          ],
-                        ),
+                            child: Consumer<ReviewProvider>(
+                              builder: (context, postreview, child) {
+                                return Card(
+                                  shadowColor: Theme.of(context).colorScheme.secondaryContainer,
+                                  borderOnForeground: true,
+                                  elevation: 10,
+                                  child: Padding(
+                                    padding: EdgeInsets.all(12),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        const Text("tuliskan komentar anda"),
+                                        const SizedBox(height: 10),
+                                        TextField(
+                                          controller: username,
+                                          decoration: InputDecoration(
+                                            border: OutlineInputBorder(),
+                                            label: Text("Username"),
+                                          ),
+                                        ),
+                                        const SizedBox(height: 10),
+                                        TextFormField(
+                                          controller: description,
+                                          maxLines: 3,
+                                          keyboardType:
+                                              TextInputType.multiline,
+                                          decoration: InputDecoration(
+                                            label: Text("Deskripsi"),
+                                            border: OutlineInputBorder(),
+                                          ),
+                                        ),
+                                        const SizedBox(height: 10),
+                                        OutlinedButton(
+                                          onPressed: () {
+                                            Logger().d(data.restaurants.id);
+                                            postreview.onSubmit(
+                                              username.text,
+                                              description.text,
+                                              data.restaurants.id,
+                                            );
+                                            showDialog(
+                                              barrierDismissible: false,
+                                              context: context,
+                                              builder: (context) => Consumer<ReviewProvider>(
+                                                builder:
+                                                    (
+                                                      context,
+                                                      value,
+                                                      child,
+                                                    ) => switch (value
+                                                        .status) {
+                                                      StatussuksesPostreview(
+                                                        response: var response,
+                                                      ) =>
+                                                        AlertDialog(
+                                                          title: Text(
+                                                            "Review",
+                                                          ),
+                                                          actions: [
+                                                            Column(
+                                                              children: [
+                                                                Text(
+                                                                  response
+                                                                      .message,
+                                                                ),
+                                                                TextButton(
+                                                                  onPressed: () {
+                                                                    Navigator.pop(
+                                                                      context,
+                                                                    );
+                                                                  },
+                                                                  child: Text(
+                                                                    "OK",
+                                                                  ),
+                                                                ),
+                                                              ],
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      Statuserror(
+                                                        message: var message,
+                                                      ) =>
+                                                        AlertDialog(
+                                                          title: Text(
+                                                            "terjadi kesalahan",
+                                                          ),
+                                                          actions: [
+                                                            Text(message),
+                                                            TextButton(
+                                                              onPressed: () {
+                                                                Navigator.pop(
+                                                                  context,
+                                                                );
+                                                              },
+                                                              child: Text(
+                                                                "OK",
+                                                              ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                      _ => Center(
+                                                        child:
+                                                            const CircularProgressIndicator(),
+                                                      ),
+                                                    },
+                                              ),
+                                            );
+                                          },
+                                          child: const Text("Kirim"),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              },
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ),

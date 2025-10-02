@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:logger/web.dart';
 import 'package:provider/provider.dart';
+import 'package:restaurant_app/provider/bottomnav_provider.dart';
 import 'package:restaurant_app/provider/database_provider.dart';
 import 'package:restaurant_app/provider/restoranlist_provider.dart';
 import 'package:restaurant_app/static/status.dart';
@@ -28,11 +29,12 @@ class _FavouriteScreenState extends State<FavouriteScreen> {
       body: SafeArea(
         child: Consumer<DatabaseProvider>(
           builder: (context, values, child) {
-            Logger().d(values.status);
+            Logger().d(context.read<Navigationprovider>().indexNav);
             return switch (values.status) {
               StatussuksesloaDatabase() => Customlistrestoran(
                 title: "Favourite",
                 datalist: values.restoran ?? [],
+                indexbotnav: context.read<Navigationprovider>().indexNav,
               ),
               Statuserror(message: var message) => Column(
                 children: [

@@ -12,6 +12,7 @@ class CardItemMenu extends StatelessWidget {
       child: Padding(
         padding: EdgeInsets.all(5),
         child: Card(
+          color: Theme.of(context).colorScheme.secondaryContainer,
           child: Padding(
             padding: const EdgeInsets.all(5),
             child: Column(
@@ -24,11 +25,13 @@ class CardItemMenu extends StatelessWidget {
                 ),
                 Text(
                   jenis.jenis,
-                  style: Theme.of(context).textTheme.titleSmall,
+                  style: Theme.of(context).textTheme.titleSmall!.copyWith(
+                    fontWeight: FontWeight.bold
+                  ),
                 ),
                 Text(
                   namamenu,
-                  style: Theme.of(context).textTheme.bodySmall,
+                  style: Theme.of(context).textTheme.bodyMedium,
                   maxLines: 1,
                   overflow: TextOverflow.clip,
                 ),

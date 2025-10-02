@@ -31,13 +31,16 @@ class CardItemRestoranlist extends StatelessWidget {
                   child: SizedBox(
                     height: 100,
                     width: 200,
-                    child: ClipRRect(
-                      borderRadius: BorderRadius.circular(12),
-                      child: Image.network(
-                        "${Baseurl.imageUrl}/${dataresto.pictureId}",
-                        errorBuilder: (context, error, stackTrace) =>
-                            const Icon(Icons.error),
-                        fit: BoxFit.cover,
+                    child: Hero(
+                      tag: "hero${dataresto.pictureId}",
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(12),
+                        child: Image.network(
+                          "${Baseurl.imageUrl}/${dataresto.pictureId}",
+                          errorBuilder: (context, error, stackTrace) =>
+                              const Icon(Icons.error),
+                          fit: BoxFit.cover,
+                        ),
                       ),
                     ),
                   ),
@@ -55,14 +58,14 @@ class CardItemRestoranlist extends StatelessWidget {
                         children: [
                           Text(
                             dataresto.name,
-                            style: Theme.of(context).textTheme.labelLarge,
+                            style: Theme.of(context).textTheme.titleMedium,
                           ),
                           Row(
                             children: [
                               Icon(Icons.location_on, size: 20),
                               Text(
                                 dataresto.city,
-                                style: Theme.of(context).textTheme.labelSmall,
+                                style: Theme.of(context).textTheme.bodyMedium,
                               ),
                             ],
                           ),
@@ -76,7 +79,7 @@ class CardItemRestoranlist extends StatelessWidget {
                           Icon(Icons.star, size: 20),
                           Text(
                             dataresto.rating.toString(),
-                            style: Theme.of(context).textTheme.labelSmall,
+                            style: Theme.of(context).textTheme.bodyMedium,
                           ),
                         ],
                       ),

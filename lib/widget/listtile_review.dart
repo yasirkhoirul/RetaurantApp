@@ -8,10 +8,10 @@ class ListtileReview extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       leading: Icon(Icons.person),
-      title: Text(review.name, style: Theme.of(context).textTheme.titleSmall),
+      title: Text(review.name, style: Theme.of(context).textTheme.titleMedium),
       subtitle: Text(
         review.review,
-        style: Theme.of(context).textTheme.bodySmall,
+        style: Theme.of(context).textTheme.bodyMedium,
       ),
     );
   }
