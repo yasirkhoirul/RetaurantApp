@@ -1,7 +1,8 @@
 import 'package:restaurant_app/api/model/detail_restoran.dart';
 import 'package:restaurant_app/api/model/restoran_model.dart';
+import 'package:restaurant_app/api/model/setting.dart';
 
-sealed class Status {}
+sealed class Status{}
 
 class Statusloading extends Status {}
 
@@ -35,4 +36,9 @@ class StatussuksesPostreview extends Status {
 class StatussuksesloaDatabase extends Status {
   final String message;
   StatussuksesloaDatabase(this.message);
+}
+
+class Statussuksespermission extends Status{
+  final Setting? setting;
+  Statussuksespermission(this.setting);
 }

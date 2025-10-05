@@ -4,6 +4,7 @@ import 'package:restaurant_app/api/data/restoran_api.dart';
 import 'package:restaurant_app/provider/bottomnav_provider.dart';
 import 'package:restaurant_app/provider/database_provider.dart';
 import 'package:restaurant_app/provider/detail_restaurant_provider.dart';
+import 'package:restaurant_app/provider/local_notification_provider.dart';
 import 'package:restaurant_app/provider/restoranlist_provider.dart';
 import 'package:restaurant_app/provider/review_provider.dart';
 import 'package:restaurant_app/provider/searchbar_provider.dart';
@@ -47,12 +48,22 @@ void main() async {
               DatabaseProvider(sqlite: context.read<SqliteService>()),
         ),
         Provider(create: (context) => SettingService(prefs)),
+        Provider(
+          create: (context) => TimezoneNotificationService()
+            ..init()
+            ..configureLocalTImezone(),
+        ),
         ChangeNotifierProvider(
           create: (context) =>
-              SettingProvider(settingService: context.read<SettingService>())..getdata(),
+              SettingProvider(settingService: context.read<SettingService>())
+                ..getdata(),
         ),
 
-        Provider(create: (context) => TimezoneNotificationService()..init()..configureLocalTImezone(),)
+        ChangeNotifierProvider(
+          create: (context) => LocalNotificationProvider(
+            context.read<TimezoneNotificationService>(),
+          ),
+        ),
       ],
       child: const MainApp(),
     ),
@@ -67,7 +78,9 @@ class MainApp extends StatelessWidget {
     return MaterialApp(
       theme: TurisTheme.lightTheme,
       darkTheme: TurisTheme.darkTheme,
-      themeMode: context.watch<SettingProvider>().setting!.theme?ThemeMode.light:ThemeMode.dark,
+      themeMode: context.watch<SettingProvider>().setting!.theme
+          ? ThemeMode.light
+          : ThemeMode.dark,
       initialRoute: Restoreanroute.home.rute,
       routes: {
         Restoreanroute.home.rute: (context) => HomeScreen(),

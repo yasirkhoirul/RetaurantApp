@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:logger/logger.dart';
 import 'package:restaurant_app/api/model/setting.dart';
 import 'package:restaurant_app/service/setting_service.dart';
 import 'package:restaurant_app/static/status.dart';
 
 class SettingProvider extends ChangeNotifier {
-  SettingService settingService;
+
+  final SettingService settingService;
   SettingProvider({required this.settingService});
 
   Status _status = StatusIdle();
@@ -26,14 +28,18 @@ class SettingProvider extends ChangeNotifier {
   }
 
   Future getdata() async {
+    Logger().d("dijalankan");
     _status = Statusloading();
     try {
-      _setting = settingService.getData();
-      _status = StatussuksesloaDatabase("data berhasil diambil");
+    _setting = settingService.getData();
+      Logger().d("get data terbary${_setting?.notif}");
+    _status = StatussuksesloaDatabase("berhasil");
     } catch (e) {
       _status = Statuserror(message: "terjadi kesalahan $e");
     } finally {
       notifyListeners();
     }
   }
+
+  
 }
