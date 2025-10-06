@@ -1,44 +1,66 @@
+import 'package:equatable/equatable.dart';
 import 'package:restaurant_app/api/model/detail_restoran.dart';
 import 'package:restaurant_app/api/model/restoran_model.dart';
-import 'package:restaurant_app/api/model/setting.dart';
 
-sealed class Status{}
+sealed class Status extends Equatable{
 
-class Statusloading extends Status {}
+  const Status();
+  @override
+  List<Object?> get props => [];
+}
 
-class StatusIdle extends Status {}
+class Statusloading extends Status {
+  const Statusloading();
+}
+
+class StatusIdle extends Status {
+  const StatusIdle();
+}
 
 class Statuserror extends Status {
   final String message;
-  Statuserror({required this.message});
+  const Statuserror({required this.message});
+
+  @override
+  List<Object?> get props => [message];
 }
 
 class Statussukses extends Status {
   final Restoranlist datarestoran;
-  Statussukses({required this.datarestoran});
+  const Statussukses({required this.datarestoran});
+  @override
+  List<Object?> get props => [datarestoran];
 }
 
 class StatussuksesSearch extends Status {
   final SearchRestoran datarestoran;
-  StatussuksesSearch({required this.datarestoran});
+  const StatussuksesSearch({required this.datarestoran});
+  @override
+  
+  List<Object?> get props => [datarestoran];
 }
 
 class Statussuksesdetail extends Status {
   final DetailRestoran data;
-  Statussuksesdetail({required this.data});
+  const Statussuksesdetail({required this.data});
+  @override
+  
+  List<Object?> get props => [data];
 }
 
 class StatussuksesPostreview extends Status {
   final ReviewPostResponse response;
-  StatussuksesPostreview({required this.response});
+  const StatussuksesPostreview({required this.response});
+  @override
+  
+  List<Object?> get props => [response];
 }
 
 class StatussuksesloaDatabase extends Status {
   final String message;
-  StatussuksesloaDatabase(this.message);
+  const StatussuksesloaDatabase(this.message);
+  @override
+  
+  List<Object?> get props => [message];
 }
 
-class Statussuksespermission extends Status{
-  final Setting? setting;
-  Statussuksespermission(this.setting);
-}
