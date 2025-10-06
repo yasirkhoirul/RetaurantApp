@@ -25,9 +25,9 @@ class CardItemMenu extends StatelessWidget {
                 ),
                 Text(
                   jenis.jenis,
-                  style: Theme.of(context).textTheme.titleSmall!.copyWith(
-                    fontWeight: FontWeight.bold
-                  ),
+                  style: Theme.of(
+                    context,
+                  ).textTheme.titleSmall!.copyWith(fontWeight: FontWeight.bold),
                 ),
                 Text(
                   namamenu,

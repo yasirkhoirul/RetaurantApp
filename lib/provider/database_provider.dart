@@ -50,7 +50,6 @@ class DatabaseProvider extends ChangeNotifier {
       } else {
         await loadAllFavoritRestoran();
         _status = StatussuksesloaDatabase("berhasil mengapus");
-        
       }
     } catch (e) {
       _status = Statuserror(message: "terjadi kesalahan $e");

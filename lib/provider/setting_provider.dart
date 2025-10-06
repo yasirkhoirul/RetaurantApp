@@ -5,7 +5,6 @@ import 'package:restaurant_app/service/setting_service.dart';
 import 'package:restaurant_app/static/status.dart';
 
 class SettingProvider extends ChangeNotifier {
-
   final SettingService settingService;
   SettingProvider({required this.settingService});
 
@@ -31,15 +30,13 @@ class SettingProvider extends ChangeNotifier {
     Logger().d("dijalankan");
     _status = Statusloading();
     try {
-    _setting = settingService.getData();
+      _setting = settingService.getData();
       Logger().d("get data terbary${_setting?.notif}");
-    _status = StatussuksesloaDatabase("berhasil");
+      _status = StatussuksesloaDatabase("berhasil");
     } catch (e) {
       _status = Statuserror(message: "terjadi kesalahan $e");
     } finally {
       notifyListeners();
     }
   }
-
-  
 }

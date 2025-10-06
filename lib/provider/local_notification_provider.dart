@@ -16,30 +16,31 @@ class LocalNotificationProvider extends ChangeNotifier {
 
   List<PendingNotificationRequest> pendingNotificationRequests = [];
 
-  Future checkPermission() async{
+  Future checkPermission() async {
     _status = Statusloading();
     try {
-      final permission = await _timezoneNotificationService.isAndroidPermissionGranted();
-      
+      final permission = await _timezoneNotificationService
+          .isAndroidPermissionGranted();
+
       _permission = permission;
     } catch (e) {
-      _status =Statuserror(message: "terjadi kesalhan");
-    }finally{
+      _status = Statuserror(message: "terjadi kesalhan");
+    } finally {
       notifyListeners();
     }
   }
 
-  void setpermissision(bool? data){
+  void setpermissision(bool? data) {
     _permission = data;
     notifyListeners();
   }
+
   Future<void> requestPermissions() async {
     try {
-      _permission = await _timezoneNotificationService
-        .requestPermissions();
+      _permission = await _timezoneNotificationService.requestPermissions();
     } catch (e) {
-      _status = Statuserror(message: 'terjadi kesalahan $e'); 
-    }finally{
+      _status = Statuserror(message: 'terjadi kesalahan $e');
+    } finally {
       notifyListeners();
     }
   }

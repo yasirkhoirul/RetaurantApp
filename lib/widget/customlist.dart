@@ -15,8 +15,8 @@ class Customlistrestoran extends StatefulWidget {
     super.key,
     required this.title,
     required this.datalist,
-    required this.indexbotnav
-  });//
+    required this.indexbotnav,
+  }); //
 
   @override
   State<Customlistrestoran> createState() => _CustomlistrestoranState();
@@ -61,28 +61,31 @@ class _CustomlistrestoranState extends State<Customlistrestoran> {
           ),
         ),
 
-        widget.indexbotnav == 0?SliverPersistentHeader(
-          pinned: true,
-          delegate: Headerlistrestorandelegate(
-            maxheight: 120,
-            minheight: 50,
-            anak: Center(
-              child: Padding(
-                padding: EdgeInsets.all(5),
-                child: SearchBar(
-                  controller: text,
-                  onTapOutside: (event) => Logger().d(ModalRoute.of(context)?.settings.name),
-                  onChanged: (value) =>
-                      context.read<SearchbarProvider>().setdata(value),
-                  onSubmitted: (value) =>
-                      context.read<SearchbarProvider>().searchItem(),
-                  hintText: "Cari Restoran",
-                  leading: Icon(Icons.search),
+        widget.indexbotnav == 0
+            ? SliverPersistentHeader(
+                pinned: true,
+                delegate: Headerlistrestorandelegate(
+                  maxheight: 120,
+                  minheight: 50,
+                  anak: Center(
+                    child: Padding(
+                      padding: EdgeInsets.all(5),
+                      child: SearchBar(
+                        controller: text,
+                        onTapOutside: (event) =>
+                            Logger().d(ModalRoute.of(context)?.settings.name),
+                        onChanged: (value) =>
+                            context.read<SearchbarProvider>().setdata(value),
+                        onSubmitted: (value) =>
+                            context.read<SearchbarProvider>().searchItem(),
+                        hintText: "Cari Restoran",
+                        leading: Icon(Icons.search),
+                      ),
+                    ),
+                  ),
                 ),
-              ),
-            ),
-          ),
-        ):SliverToBoxAdapter(),
+              )
+            : SliverToBoxAdapter(),
         Consumer<SearchbarProvider>(
           builder: (context, values, child) {
             return switch (values.datalistsearch) {

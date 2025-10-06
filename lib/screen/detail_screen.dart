@@ -89,8 +89,9 @@ class _DetailScreenState extends State<DetailScreen> {
                                   ? Icon(Icons.favorite, color: Colors.red)
                                   : Icon(Icons.favorite),
                               onPressed: () {
-                                final cek = context.read<DatabaseProvider>().isCheck(
-                                    widget.idResto);
+                                final cek = context
+                                    .read<DatabaseProvider>()
+                                    .isCheck(widget.idResto);
                                 Logger().d(cek);
                                 if (!context.read<DatabaseProvider>().isCheck(
                                   widget.idResto,
@@ -321,7 +322,9 @@ class _DetailScreenState extends State<DetailScreen> {
                             child: Consumer<ReviewProvider>(
                               builder: (context, postreview, child) {
                                 return Card(
-                                  shadowColor: Theme.of(context).colorScheme.secondaryContainer,
+                                  shadowColor: Theme.of(
+                                    context,
+                                  ).colorScheme.secondaryContainer,
                                   borderOnForeground: true,
                                   elevation: 10,
                                   child: Padding(
@@ -345,8 +348,7 @@ class _DetailScreenState extends State<DetailScreen> {
                                         TextFormField(
                                           controller: description,
                                           maxLines: 3,
-                                          keyboardType:
-                                              TextInputType.multiline,
+                                          keyboardType: TextInputType.multiline,
                                           decoration: InputDecoration(
                                             label: Text("Deskripsi"),
                                             border: OutlineInputBorder(),
@@ -370,15 +372,12 @@ class _DetailScreenState extends State<DetailScreen> {
                                                       context,
                                                       value,
                                                       child,
-                                                    ) => switch (value
-                                                        .status) {
+                                                    ) => switch (value.status) {
                                                       StatussuksesPostreview(
                                                         response: var response,
                                                       ) =>
                                                         AlertDialog(
-                                                          title: Text(
-                                                            "Review",
-                                                          ),
+                                                          title: Text("Review"),
                                                           actions: [
                                                             Column(
                                                               children: [
@@ -415,9 +414,7 @@ class _DetailScreenState extends State<DetailScreen> {
                                                                   context,
                                                                 );
                                                               },
-                                                              child: Text(
-                                                                "OK",
-                                                              ),
+                                                              child: Text("OK"),
                                                             ),
                                                           ],
                                                         ),

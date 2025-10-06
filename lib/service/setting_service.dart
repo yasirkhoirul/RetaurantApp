@@ -17,8 +17,6 @@ class SettingService {
     }
   }
 
-  
-
   Setting getData() {
     return Setting(
       notif: _service.getBool(settingnotif) ?? false,

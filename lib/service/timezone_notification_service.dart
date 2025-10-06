@@ -144,6 +144,7 @@ class TimezoneNotificationService {
   Future<void> cancelNotification(int id) async {
     await FlutterLocalNotificationsPlugin().cancel(id);
   }
+
   Future<void> cancelAllnotification() async {
     await FlutterLocalNotificationsPlugin().cancelAll();
   }
