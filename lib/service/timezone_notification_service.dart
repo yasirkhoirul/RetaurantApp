@@ -7,7 +7,7 @@ import 'package:timezone/timezone.dart' as tz;
 class TimezoneNotificationService {
   Future<void> init() async {
     const initializationSettingsAndroid = AndroidInitializationSettings(
-      'app_icon',
+      '@mipmap/ic_launcher',
     );
     const initializationSettingsDarwin = DarwinInitializationSettings(
       requestAlertPermission: false,
@@ -30,20 +30,6 @@ class TimezoneNotificationService {
     tz.setLocalLocation(tz.getLocation(timzone));
   }
 
-  tz.TZDateTime _nextInstanceofelevenam() {
-    final tz.TZDateTime now = tz.TZDateTime.now(tz.local);
-    tz.TZDateTime scheduledDate = tz.TZDateTime(
-      tz.local,
-      now.year,
-      now.month,
-      now.day,
-      11,
-    );
-    if (scheduledDate.isBefore(now)) {
-      scheduledDate = scheduledDate.add(const Duration(days: 1));
-    }
-    return scheduledDate;
-  }
 
   Future<bool> isAndroidPermissionGranted() async {
     return await FlutterLocalNotificationsPlugin()
@@ -103,11 +89,25 @@ class TimezoneNotificationService {
     }
   }
 
+  tz.TZDateTime _nextInstanceofelevenam() {
+    final tz.TZDateTime now = tz.TZDateTime.now(tz.local);
+    tz.TZDateTime scheduledDate = tz.TZDateTime(
+      tz.local,
+      now.year,
+      now.month,
+      now.day,
+      11,
+    );
+    if (scheduledDate.isBefore(now)) {
+      scheduledDate = scheduledDate.add(const Duration(days: 1));
+    }
+    return scheduledDate;
+  }
   Future<void> scheduleDailyelevenAMNotification({
     required int id,
     String channelId = "3",
     String channelName = "Schedule Notification",
-  }) async {
+  }) async { 
     final androidPlatformChannelSpecifics = AndroidNotificationDetails(
       channelId,
       channelName,
@@ -126,8 +126,8 @@ class TimezoneNotificationService {
 
     await FlutterLocalNotificationsPlugin().zonedSchedule(
       id,
-      'Daily scheduled notification title',
-      'This is a body of daily scheduled notification',
+      'Pengingat Restaurant App',
+      'Pengingat sudah jam 11 siang',
       datetimeSchedule,
       notificationDetails,
       androidScheduleMode: AndroidScheduleMode.exactAllowWhileIdle,
