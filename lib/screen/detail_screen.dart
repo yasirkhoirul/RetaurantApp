@@ -221,6 +221,19 @@ class _DetailScreenState extends State<DetailScreen> {
                                 ),
                               ],
                             ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Icon(Icons.star, size: 20),
+                                SizedBox(width: 10),
+                                Text(
+                                  "${data.restaurants.rating}",
+                                  style: Theme.of(context).textTheme.labelLarge,
+                                ),
+                              ],
+                            ),
+
                           ],
                         ),
                       ),
