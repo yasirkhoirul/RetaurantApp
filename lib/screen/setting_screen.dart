@@ -23,7 +23,7 @@ class _SettingScreenState extends State<SettingScreen>
     final local = context.read<LocalNotificationProvider>();
     Logger().d("dijalankan 3");
     await local.checkPermission();
-    final bool permission = local.permission??false;
+    final bool permission = local.permission ?? false;
     Logger().d("permissionnya adalah $permission");
     if (!permission && mounted) {
       Logger().d("masuk !permission");
@@ -85,16 +85,24 @@ class _SettingScreenState extends State<SettingScreen>
                       ? (value) async {
                           if (value) {
                             await values.saveData(
-                            Setting(notif: value, theme: values.setting!.theme),
+                              Setting(
+                                notif: value,
+                                theme: values.setting!.theme,
+                              ),
                             );
                             _scheduleDailytenAMNotification();
                             await values.getdata();
                           } else {
                             await values.saveData(
-                            Setting(notif: value, theme: values.setting!.theme),
+                              Setting(
+                                notif: value,
+                                theme: values.setting!.theme,
+                              ),
                             );
                             if (context.mounted) {
-                              await context.read<LocalNotificationProvider>().cancelAllnotif();
+                              await context
+                                  .read<LocalNotificationProvider>()
+                                  .cancelAllnotif();
                             }
                             await values.getdata();
                           }
@@ -146,9 +154,7 @@ class _SettingScreenState extends State<SettingScreen>
   }
 
   Future<void> _scheduleDailytenAMNotification() async {
-    context
-        .read<LocalNotificationProvider>()
-        .scheduleDailytenAMNotification();
+    context.read<LocalNotificationProvider>().scheduleDailytenAMNotification();
   }
 }
 

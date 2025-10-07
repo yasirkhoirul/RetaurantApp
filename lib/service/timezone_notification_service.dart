@@ -30,7 +30,6 @@ class TimezoneNotificationService {
     tz.setLocalLocation(tz.getLocation(timzone));
   }
 
-
   Future<bool> isAndroidPermissionGranted() async {
     return await FlutterLocalNotificationsPlugin()
             .resolvePlatformSpecificImplementation<
@@ -103,11 +102,12 @@ class TimezoneNotificationService {
     }
     return scheduledDate;
   }
+
   Future<void> scheduleDailyelevenAMNotification({
     required int id,
     String channelId = "3",
     String channelName = "Schedule Notification",
-  }) async { 
+  }) async {
     final androidPlatformChannelSpecifics = AndroidNotificationDetails(
       channelId,
       channelName,
